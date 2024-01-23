@@ -1,8 +1,6 @@
 // GameBoard.js
-// GameBoard.js
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { GameContext } from '../context/GameContext';
-
 
 
 function GameBoard({ backgroundColor, onGameEnd, onPlayerChange,playerDiscColor, aiDiscColor}) {
@@ -71,33 +69,6 @@ function GameBoard({ backgroundColor, onGameEnd, onPlayerChange,playerDiscColor,
   const isBoardFull = (board) => {
     return board.every(row => row.every(cell => cell !== null));
   };
-
-  // const getNextComputerMove = async (board) => {
-  //   // Placeholder for more complex AI logic
-  //   console.log("board:",board);
-  //   const validColumns = [];
-  //   for (let c = 0; c < columns; c++) {
-  //     if (board[0][c] === null) validColumns.push(c);
-  //   }
-  //   console.log("validColumns:",validColumns);
-  //   return Promise.resolve(validColumns[Math.floor(Math.random() * validColumns.length)]);
-  // };
-
-//   const getNextComputerMove = useCallback(async () => {
-//     try {
-//         const response = await fetch('http://localhost:5000/api/get-ai-move', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({ board }),
-//         });
-//         const data = await response.json();
-//         return data.columnIndex; // Assuming the server returns the columnIndex for the AI's move
-//     } catch (error) {
-//         console.error('Error fetching AI move:', error);
-//     }
-// }, [board]);
 
 const gameStateToString = (board) => {
   // Initialize an empty string to represent the board
@@ -169,24 +140,6 @@ const gameStateToString = (board) => {
     }
   };
 
-  // useEffect(() => {
-  //   let timeoutId;
-  //   if (gameOver) {
-  //     if (!winner) {
-  //       timeoutId = setTimeout(resetGame, 3000); // Auto-restart the game if it's a draw
-  //     }
-  //   } else if (currentPlayer === 'O') {
-  //     getNextComputerMove(board).then(columnIndex => {
-  //         if (columnIndex !== undefined) {
-  //             timeoutId = setTimeout(() => placeDisc(columnIndex, 'O'), 1000);
-  //         }
-  //     });
-  //   }
-  
-  //   return () => clearTimeout(timeoutId);
-  // }, [currentPlayer, getNextComputerMove, placeDisc, board, gameOver, winner]);
-
-
   useEffect(() => {
     let timeoutId;
     if (gameOver) {
@@ -197,27 +150,40 @@ const gameStateToString = (board) => {
     return () => clearTimeout(timeoutId);
   }, [gameOver, winner, resetGame]);
   
+  // useEffect(() => {
+  //   if (currentPlayer === 'O' && !gameOver) {
+  //     // Convert the current board state to string format
+  //     const gameState = gameStateToString(board);
+  //     // Request the AI's move from the server
+  //     console.log(gameState);
+  //     getAiMove(gameState).then(columnIndex => {
+  //       console.log("columnindex:", columnIndex);
+  //       if (columnIndex !== undefined) {
+  //         // Extract the AI's move from the response
+    
+  //         // Log the AI's move
+  //         console.log('AI Move:', columnIndex);
+    
+  //         // Place the AI's move on the game board
+  //         placeDisc(columnIndex, 'O');
+  //       }
+  //     });
+  //   }
+  // }, [currentPlayer, placeDisc, board, gameOver, winner]);
   useEffect(() => {
-    if (currentPlayer === 'O' && !gameOver) {
-      // Convert the current board state to string format
+    if (currentPlayer === 'O' && !gameOver && !winner) {
       const gameState = gameStateToString(board);
-      // Request the AI's move from the server
       console.log(gameState);
       getAiMove(gameState).then(columnIndex => {
         console.log("columnindex:", columnIndex);
         if (columnIndex !== undefined) {
-          // Extract the AI's move from the response
-    
-          // Log the AI's move
           console.log('AI Move:', columnIndex);
-    
-          // Place the AI's move on the game board
           placeDisc(columnIndex, 'O');
         }
       });
     }
   }, [currentPlayer, placeDisc, board, gameOver, winner]);
-
+  
   return (
     <div style={{ backgroundColor: backgroundColor, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {board.map((row, rowIndex) => (

@@ -1,26 +1,27 @@
 import React, { useContext } from 'react';
 import { GameContext } from '../context/GameContext';
+import '../ListOfGamesScreen.css'; 
 
 function ListOfGamesScreen() {
   const { games } = useContext(GameContext);
   const pastGames = games.filter(game => game.status === 'completed');
 
   return (
-    <div>
-      <h2>Past Games</h2>
+    <div className="past-games-container">
+      <h2 className="past-games-header">Past Games</h2>
       {pastGames.length > 0 ? (
-        <ul>
+        <div className="game-list">
           {pastGames.map(game => (
-            <li key={game.id}>
-              <strong>Gamer Name:</strong> {game.name}<br />
-              <strong>Date/Time:</strong> {game.dateTime}<br />
-              <strong>Winner:</strong> {game.winner}<br />
-              <strong>Loser:</strong> {game.loser}<br />
-            </li>
+            <div className="game-card" key={game.id}>
+              <h3>{game.name}</h3>
+              <p><strong>Date/Time:</strong> {game.dateTime}</p>
+              <p><strong>Winner:</strong> {game.winnerName}</p>
+              <p><strong>Loser:</strong> {game.loser}</p>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
-        <p>No completed games to display.</p>
+        <p className="no-games-message">No completed games to display.</p>
       )}
     </div>
   );

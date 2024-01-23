@@ -11,21 +11,23 @@ function GameScreen() {
   const [gameResult, setGameResult] = useState('');
   const [currentPlayer, setCurrentPlayer] = useState('+');
   const [playerDiscColor, setPlayerDiscColor] = useState('+');
-
   const [showModal, setShowModal] = useState(false);
 
-  const handleGameEnd = (winnerName) => {
-    const resultMessage = `${game.name} wins!`;
+  const handleGameEnd = (winner) => {
+    const resultMessage = `Congratulations, ${winner} wins!`;
     setGameResult(resultMessage);
     setShowModal(true);
 
-    const loser = winnerName === game.playerName ? 'AI' : game.playerName;
-    updateGameStatus(parseInt(id), 'completed', game.name, loser);
+    // Kazanan ve kaybedenin belirlenmesi
+    const loser = winner === game.playerName ? 'AI' : game.playerName;
+
+    // Oyun durumunu güncelleme
+    updateGameStatus(parseInt(id), 'completed', winner, loser);
   };
+
 
   const handleCloseModal = () => {
     setShowModal(false);
-    // Additional logic to reset the game or navigate away if needed
   };
 
   if (!game) {
@@ -34,14 +36,14 @@ function GameScreen() {
 
   return (
     <div>
-      <h2>Playing: {game.name}</h2>
-      <p>Current Player: {currentPlayer}</p> {/* Display currentPlayer */}
+      <h2>Game Name: {game.name}</h2>
+      <p>Current Player: {currentPlayer === '+' ? game.playerName : 'AI'}</p>
 
       <GameBoard
         backgroundColor={game.backgroundColor}
         onGameEnd={handleGameEnd}
         onPlayerChange={setCurrentPlayer}
-        playerDiscColor= {game.playerDiscColor}
+        playerDiscColor={game.playerDiscColor}
       />
       <AlertModal show={showModal} onClose={handleCloseModal}>
         <p>{gameResult}</p>

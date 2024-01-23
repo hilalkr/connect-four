@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react';
 import { GameContext } from '../context/GameContext';
 import { useNavigate } from 'react-router-dom';
-
+import '../GameCreationScreen.css';
 function GameCreationScreen() {
   const [gameName, setGameName] = useState('');
   const [playerName, setPlayerName] = useState('');
@@ -58,11 +58,12 @@ function GameCreationScreen() {
       alert('Please select your name and color to access past games.');
     }
   };
+  
 
   return (
-    <div>
+    <div className="game-creation-container">
       <h2>Create a New Game</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="game-creation-form">
         <label>
           Game Name:
           <input type="text" value={gameName} onChange={handleGameNameChange} required />

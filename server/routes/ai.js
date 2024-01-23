@@ -33,7 +33,7 @@ router.post('/get-ai-move', async (req, res) => {
       res.json(data.choices[0].message.content);
     } catch (error) {
       console.error('Error fetching AI move:', error);
-      setTimeout(fetchAIResponse, 5000); // Retry after 5 seconds
+      setTimeout(fetchAIResponse, 10000); // Retry after 5 seconds
     }
   };
 
