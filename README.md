@@ -36,7 +36,7 @@ This documentation outlines our Connect Four game, a digital adaptation of the c
 ```bash
 npm install
 ```
-  - This will install all the required Node.js packages for the client-side.
+  - Navigate to the root directory of the project to install client-side dependencies:
 
 4. Set up Environment Variables:
 - Create a .env file in your server directory.
@@ -54,6 +54,7 @@ npm start
  
 ### Project Structure
 
+```plaintext
 connect-four-hilal/
 ├── public/
 │   └── index.html 
@@ -77,6 +78,8 @@ connect-four-hilal/
 ├── package-lock.json
 ├── package.json
 └── README.md
+```
+
 
 
  ### Quick Start
