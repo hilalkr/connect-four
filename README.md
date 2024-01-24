@@ -186,8 +186,15 @@ The server component of the Connect Four game is a crucial piece of the architec
 - Response Handling: The response from the OpenAI API is parsed to extract the AI's chosen move, which is then sent back to the client. This move is the column index where the AI has decided to place its disc.
 
 
+ChatGpt History: https://github.com/hilalkr/connect-four/blob/main/chatgpt-conversation-history.md
+
 ### Contact
 
 Hilal KARA - hilalkara0020@gmail.com
 Project Link: https://github.com/hilalkr/connect-four
+
+
+
+
+
 
