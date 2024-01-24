@@ -54,30 +54,29 @@ npm start
  
 ### Project Structure
 
-connect-four-hilal
-├── public/                
+connect-four-hilal/
+├── public/
 │   └── index.html 
-├── src
-│   ├── components
+├── src/
+│   ├── components/
 │   │   ├── AlertModal.js
 │   │   ├── GameBoard.js
 │   │   ├── GameCreationScreen.js
 │   │   ├── GameProvider.js
 │   │   ├── GameScreen.js
 │   │   └── ListOfGamesScreen.js
-│   ├── context
+│   ├── context/
 │   │   └── GameContext.js
 │   ├── App.js
 │   └── index.js
-├── server
-│   ├── routes
+├── server/
+│   ├── routes/
 │   │   └── ai.js
 │   └── index.js
-├──  .gitignore
-└── package-lock.json
-└── package.json
+├── .gitignore
+├── package-lock.json
+├── package.json
 └── README.md
-
 
 
  ### Quick Start
