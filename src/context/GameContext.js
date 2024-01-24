@@ -10,7 +10,7 @@ export const GameProvider = ({ children }) => {
   // Initialize game data from local storage or provide default data
   useEffect(() => {
     const initialGameData = JSON.parse(localStorage.getItem('gamesData')) || [
-      // your hardcoded games here...
+      //  hardcoded games here...
     ];
     setGames(initialGameData);
     setNextId(initialGameData.length ? Math.max(...initialGameData.map(g => g.id)) + 1 : 1);
@@ -27,8 +27,6 @@ export const GameProvider = ({ children }) => {
         id: nextId,
         status: 'ongoing',
         dateTime: new Date().toISOString(), // Capture the current date and time
-        // If 'players' aren't already included in 'game', you might want to add them here
-        // e.g., players: ['Player1', 'Player2'] or based on user input
         winner: null, // Initially, there's no winner
         loser: null // Initially, there's no loser
     };

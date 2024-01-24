@@ -1,6 +1,7 @@
 // GameBoard.js
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { GameContext } from '../context/GameContext';
+import '../GameBoard.css';
 
 
 function GameBoard({ backgroundColor, onGameEnd, onPlayerChange,playerDiscColor, aiDiscColor}) {
@@ -97,16 +98,18 @@ const gameStateToString = (board) => {
 
         const winner = checkForWinner(newBoard);
         if (winner) {
-          onGameEnd(`${winner} wins!`);
+          onGameEnd(`${winner}`);
           setGameOver(true); // Set game as over
+          setWinner(winner);
           return;
         } else if (isBoardFull(newBoard)) {
-          onGameEnd("It's a draw!");
+          onGameEnd(null);
           setGameOver(true); // Set game as over in case of a draw
+          setWinner(null);
         } else {
           const nextPlayer = currentPlayer === '+' ? 'O' : '+';
-          setCurrentPlayer(nextPlayer); // Burada setCurrentPlayer fonksiyonunu çağırıyoruz
-          onPlayerChange(nextPlayer); // Burada onPlayerChange prop'unu çağırıyoruz
+          setCurrentPlayer(nextPlayer); 
+          onPlayerChange(nextPlayer); 
         }
         break;
       }
@@ -143,33 +146,12 @@ const gameStateToString = (board) => {
   useEffect(() => {
     let timeoutId;
     if (gameOver) {
-      if (!winner) {
+      if (winner === null) {
         timeoutId = setTimeout(resetGame, 3000); // Auto-restart the game if it's a draw
       }
     }
     return () => clearTimeout(timeoutId);
-  }, [gameOver, winner, resetGame]);
-  
-  // useEffect(() => {
-  //   if (currentPlayer === 'O' && !gameOver) {
-  //     // Convert the current board state to string format
-  //     const gameState = gameStateToString(board);
-  //     // Request the AI's move from the server
-  //     console.log(gameState);
-  //     getAiMove(gameState).then(columnIndex => {
-  //       console.log("columnindex:", columnIndex);
-  //       if (columnIndex !== undefined) {
-  //         // Extract the AI's move from the response
-    
-  //         // Log the AI's move
-  //         console.log('AI Move:', columnIndex);
-    
-  //         // Place the AI's move on the game board
-  //         placeDisc(columnIndex, 'O');
-  //       }
-  //     });
-  //   }
-  // }, [currentPlayer, placeDisc, board, gameOver, winner]);
+  }, [gameOver, winner]);
   useEffect(() => {
     if (currentPlayer === 'O' && !gameOver && !winner) {
       const gameState = gameStateToString(board);
@@ -184,21 +166,34 @@ const gameStateToString = (board) => {
     }
   }, [currentPlayer, placeDisc, board, gameOver, winner]);
   
+  const boardStyle = {
+    '--player-disc-color': playerDiscColor,
+    '--ai-disc-color': aiDiscColor,
+    backgroundColor: backgroundColor
+  };
+
   return (
-    <div style={{ backgroundColor: backgroundColor, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      {board.map((row, rowIndex) => (
-        <div key={rowIndex} style={{ display: 'flex' }}>
-          {row.map((cell, columnIndex) => (
-            <div key={columnIndex} onClick={() => currentPlayer === '+' && placeDisc(columnIndex)} style={{
+    <div className="gameboard-wrapper" style={boardStyle}>
+      <div className="gameboard">
+        {board.map((row, rowIndex) => (
+          <div className="row" key={rowIndex}>
+            {row.map((cell, columnIndex) => (
+              <div className='cell'
+            key={columnIndex} 
+            onClick={() => currentPlayer === '+' && placeDisc(columnIndex)}
+            style={{
               width: 50,
               height: 50,
               backgroundColor: cell ? (cell === '+' ? playerDiscColor : 'yellow') : 'white',
               border: '1px solid black',
               boxSizing: 'border-box'
-            }} />
-          ))}
-        </div>
-      ))}
+            }}
+          />
+        ))}
+      </div>
+        ))}
+      </div>
+      <div className="game-info">{currentPlayer === '+' ? "It's your turn" : "AI's turn"}</div>
     </div>
   );
 }

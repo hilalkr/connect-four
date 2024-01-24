@@ -4,20 +4,20 @@ This documentation outlines our Connect Four game, a digital adaptation of the c
 
 ## Table of Contents
 1. [Installation](#installation)
-2. [Quick Start](#quick-start)
-3. [Features](#features)
-4. [Components](#components)
+2.  [Project Structure](#project-structure)
+3. [Quick Start](#quick-start)
+5. [Components](#components)
    - [AlertModal](#alertmodal)
    - [GameBoard](#gameboard)
    - [GameCreationScreen](#gamecreationscreen)
    - [GameProvider](#gameprovider)
    - [GameScreen](#gamescreen)
    - [ListOfGamesScreen](#listofgamesscreen)
-5. [Context](#context)
-6. [Server](#server)
+6. [Context](#context)
+7. [Server](#server)
    - [AI Logic](#ai-logic)
 
-
+8. Contact
 
 
 
@@ -52,6 +52,33 @@ npm start
 ```
  - This command will start the React application, usually available at localhost:3000.
  
+### Project Structure
+
+connect-four-hilal
+├── public/                
+│   └── index.html 
+├── src
+│   ├── components
+│   │   ├── AlertModal.js
+│   │   ├── GameBoard.js
+│   │   ├── GameCreationScreen.js
+│   │   ├── GameProvider.js
+│   │   ├── GameScreen.js
+│   │   └── ListOfGamesScreen.js
+│   ├── context
+│   │   └── GameContext.js
+│   ├── App.js
+│   └── index.js
+├── server
+│   ├── routes
+│   │   └── ai.js
+│   └── index.js
+├──  .gitignore
+└── package-lock.json
+└── package.json
+└── README.md
+
+
 
  ### Quick Start
 Get the Connect Four game up and running on your local machine in just a few simple steps. This guide assumes a basic familiarity with using a command line interface and having Node.js installed on your computer.
@@ -60,14 +87,14 @@ Step 1: Clone the Repository
 First, you need to get the code onto your machine. You can do this by cloning the repository from GitHub. Open your command line interface (CLI) and run:
 
 ```bash
-git clone https://github.com/your-username/connect-four.git
+git clone https://github.com/hilalkr/connect-four-hilal.git
 ```
 
 Step 2: Install Dependencies
 Navigate to the directory where you cloned the project:
 
 ```bash
-cd connect-four
+cd connect-four-hilal
 ```
 
 Now, install all the necessary dependencies for the game to run. Execute:
@@ -77,12 +104,19 @@ Now, install all the necessary dependencies for the game to run. Execute:
 npm install
 ```
 
-This command reads the package.json file in the project and installs all the required Node.js packages.
+This command reads the package.json file in the project and installs all the required packages.
 
 Step 3: Start the Game Server
 After successfully installing the dependencies, you're ready to start the game server. Run:
 
 ```bash
+- Navigate to the server directory
+cd server
+
+- Install dependencies
+npm install
+
+- In a separate terminal, start the server
 npm start
 ```
 
@@ -93,27 +127,14 @@ Step 4: Play the Game
 
 Once the game interface loads in your browser, you're ready to play! The game's UI is intuitive, allowing you to begin playing Connect Four immediately. If you're playing against the AI, it will automatically take its turn after you place your disc.
 
- ### Features
- The Connect Four game is a sophisticated embodiment of the classic board game, meticulously engineered to enrich the user experience with a suite of modern features. Below is a detailed exposition of its salient characteristics:
+**Game Logic**
+- This project includes a frontend and a Node.js server for a React-based Connect Four game. AI moves are calculated using the OpenAI API.
 
- 1.  Customization
- - **Personalized Themes**: Players can choose from a variety of themes to personalize the visual aspect of the game board.
+- In the game, the winner is the player who places four pieces consecutively on the board. These four pieces can be arranged vertically, horizontally or diagonally. If the board becomes full and no player can line up four pieces in a row, the game ends in a draw.
 
- 2. Real-Time Interaction
- - **Instant Move Reflection**: Moves are updated and reflected in real-time, providing an immediate and synchronous game flow.
+- In the event of a draw, i.e. when the board is full, a new game is usually started and the players take turns again.
 
-3. Intuitive Gameplay
-- **Simple yet Engaging**: The game's rules are easy to grasp – connect four discs in a row to win. This simplicity makes it accessible for players of all ages while still offering strategic depth.
-
-4. Customizable Settings
-- **Personalized Game Options**: Players can choose their disc colors and set board dimensions, allowing for a more personalized gameplay experience.
-Game History Tracking: The game keeps track of past sessions, allowing players to review their game history.
-
-5. Developer-Friendly Structure
-- **Modular Codebase**:The game's code is organized into distinct components, making it easier for developers to understand, maintain, and extend.
-- **Comprehensive Documentation**: Extensive comments and documentation are provided within the code, guiding developers through the game's architecture and logic.
-
-### Components
+ ### Components
 
 1. AlertModal.js
 `AlertModal` is a reusable modal component that displays custom content passed as children. It is conditionally rendered based on the `show` prop, allowing it to appear over other content when necessary. The modal is designed with a fixed position and a high z-index to ensure it's prominently visible. It also includes a 'Close' button, which triggers the `onClose` callback, allowing for the modal to be dismissed.
@@ -134,7 +155,7 @@ Game History Tracking: The game keeps track of past sessions, allowing players t
 `ListOfGamesScreen` displays a list of all past completed games retrieved from the `GameContext`. It filters the games to only show those with a status of 'completed' and presents them in a list format, showing details such as the game name, date/time, winner, and loser.
 
 7. GameContext
-GameContext creates a React Context, which is a way to pass data through the component tree without having to pass props down manually at every level. In the context of this game, GameContext is used to manage and distribute the state of multiple game sessions throughout the application.
+GameContext creates a React Context, which is a way to pass data through the component tree without having to pass props down manually at every level. In the context of this game, GameContext is used to manage and distribute the state of multiple game sessions throughout the application. 
 
 **Key Functionalities** 
 - State Management: GameProvider maintains the state of all game sessions, including their status, players involved, and outcomes. This state is initialized from the browser's local storage to persist data across sessions.
@@ -145,8 +166,7 @@ GameContext creates a React Context, which is a way to pass data through the com
 
 
 ### Server
-The server component of the Connect Four game is a crucial piece of the architecture, particularly responsible for the AI logic. It is designed to interact with OpenAI's API to determine the best moves for the AI opponent during gameplay.
-
+The server component of the Connect Four game is a crucial piece of the architecture, particularly responsible for the AI logic. The server side of the application is built using Express.js and integrates with an AI service for game logic. It is designed to interact with OpenAI's API to determine the best moves for the AI opponent during gameplay.
 
 #### AI Logic
 
@@ -164,4 +184,8 @@ The server component of the Connect Four game is a crucial piece of the architec
 - Response Handling: The response from the OpenAI API is parsed to extract the AI's chosen move, which is then sent back to the client. This move is the column index where the AI has decided to place its disc.
 
 
-React tabanlı bir Connect Four oyunu için frontend ve bir Node.js server'ı içeriyor. AI hamleleri, OpenAI API'si kullanılarak hesaplanıyor. 
+### Contact
+
+Hilal KARA - hilalkara0020@gmail.com
+Project Link: https://github.com/hilalkr/connect-four
+

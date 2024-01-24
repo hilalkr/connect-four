@@ -14,15 +14,25 @@ function GameScreen() {
   const [showModal, setShowModal] = useState(false);
 
   const handleGameEnd = (winner) => {
-    const resultMessage = `Congratulations, ${winner} wins!`;
+if (winner) {
+    const resultMessage = `Congratulations, ${winner === '+' ? game.playerName : 'AI'} wins!`;
+
     setGameResult(resultMessage);
     setShowModal(true);
 
-    // Kazanan ve kaybedenin belirlenmesi
-    const loser = winner === game.playerName ? 'AI' : game.playerName;
+   // Determination of winner and loser
+    const determinedWinner = winner === '+' ? game.playerName : 'AI';
+    const loser = determinedWinner === game.playerName ? 'AI' : game.playerName;
+    
 
-    // Oyun durumunu güncelleme
-    updateGameStatus(parseInt(id), 'completed', winner, loser);
+// Update game status
+    updateGameStatus(parseInt(id), 'completed', determinedWinner, loser);
+  } else {
+      const resultMessage = `It's a draw!`;
+      setGameResult(resultMessage);
+      setShowModal(true);
+    }
+
   };
 
 

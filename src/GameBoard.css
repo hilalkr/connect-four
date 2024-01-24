@@ -1,0 +1,49 @@
+.gameboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+    width: 100%; 
+  }
+  
+  .gameboard {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 15px; 
+    padding: 30px;
+    background-color: #4c4c4c; 
+    border-radius: 10px;
+    max-width: 700px; 
+  }
+  
+  .row {
+    display: contents;
+  }
+  
+  .cell {
+    width: 80px; 
+    height: 80px; 
+    border-radius: 50%; 
+    background-color: #0D0D0D; 
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+  }
+  .cell.player {
+    background-color: var(--player-disc-color); /* Use the CSS variable for player disc color */
+  }
+  
+  .cell.ai {
+    background-color: var(--ai-disc-color); /* Use the CSS variable for AI disc color */
+  }
+  .cell:hover {
+    background-color: #bb0d8d; 
+  }
+
+  
+  .game-info {
+    margin-top: 20px;
+    color: white;
+    font-size: 1.5em;
+  }
+  

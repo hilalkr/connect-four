@@ -12,10 +12,10 @@ function ListOfGamesScreen() {
       {pastGames.length > 0 ? (
         <div className="game-list">
           {pastGames.map(game => (
-            <div className="game-card" key={game.id}>
+            <div className="game-card" key={game.id} style={{backgroundColor: game.backgroundColor}}>
               <h3>{game.name}</h3>
               <p><strong>Date/Time:</strong> {game.dateTime}</p>
-              <p><strong>Winner:</strong> {game.winnerName}</p>
+              <p><strong>Winner:</strong> {game.winner}</p>
               <p><strong>Loser:</strong> {game.loser}</p>
             </div>
           ))}
