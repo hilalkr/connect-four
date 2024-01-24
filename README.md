@@ -89,7 +89,7 @@ Step 1: Clone the Repository
 First, you need to get the code onto your machine. You can do this by cloning the repository from GitHub. Open your command line interface (CLI) and run:
 
 ```bash
-git clone https://github.com/hilalkr/connect-four-hilal.git
+git clone https://github.com/hilalkr/connect-four.git
 ```
 
 Step 2: Install Dependencies
