@@ -96,7 +96,7 @@ Step 2: Install Dependencies
 Navigate to the directory where you cloned the project:
 
 ```bash
-cd connect-four-hilal
+cd connect-four
 ```
 
 Now, install all the necessary dependencies for the game to run. Execute:
